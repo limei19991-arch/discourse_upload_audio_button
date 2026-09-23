@@ -5,7 +5,13 @@ import UppyUpload from "discourse/lib/uppy/uppy-upload";
 import DButton from "discourse/ui-kit/d-button";
 import DPickFilesButton from "discourse/ui-kit/d-pick-files-button";
 import { i18n } from "discourse-i18n";
-import { AUDIO_FORMATS, audioMarkdown, insertAudioIntoBody, isAudioFile } from "../lib/audio-body";
+import {
+  AUDIO_FORMATS,
+  audioFilenameFromBody,
+  audioMarkdown,
+  insertAudioIntoBody,
+  isAudioFile,
+} from "../lib/audio-body";
 
 export default class TopicAudioUploader extends Component {
   @service dialog;
@@ -27,6 +33,14 @@ export default class TopicAudioUploader extends Component {
     return this.uploader.uploading || this.uploader.processing;
   }
 
+  get uploadedFilename() {
+    return audioFilenameFromBody(this.composer.reply);
+  }
+
+  get buttonLabel() {
+    return this.uploadedFilename ? "topic_audio.replace" : "topic_audio.upload";
+  }
+
   uploader = new UppyUpload(getOwner(this), {
     id: "topic-audio-upload",
     type: "composer",
@@ -43,10 +57,15 @@ export default class TopicAudioUploader extends Component {
       if (this.isDestroying || this.isDestroyed) {
         return;
       }
-      this.composer.set("reply", insertAudioIntoBody(
+      const result = insertAudioIntoBody(
         this.composer.reply,
-        audioMarkdown(upload, i18n("topic_audio.label"))
-      ));
+        audioMarkdown(upload),
+        this.composer.topicAudioBodyMarkdown
+      );
+      this.composer.setProperties({
+        reply: result.raw,
+        topicAudioBodyMarkdown: result.markdown,
+      });
     },
   });
 
@@ -65,7 +84,7 @@ export default class TopicAudioUploader extends Component {
       />
       <DButton
         @action={{this.uploader.openPicker}}
-        @label="topic_audio.upload"
+        @label={{this.buttonLabel}}
         @disabled={{this.busy}}
         class="btn-default btn-small topic-audio-upload-button"
       />
@@ -76,6 +95,14 @@ export default class TopicAudioUploader extends Component {
           {{i18n "topic_audio.help"}}
         {{/if}}
       </span>
+      {{#if this.uploadedFilename}}
+        <span
+          class="topic-audio-field__filename"
+          title={{this.uploadedFilename}}
+        >
+          {{i18n "topic_audio.uploaded" filename=this.uploadedFilename}}
+        </span>
+      {{/if}}
     </div>
   </template>
 }

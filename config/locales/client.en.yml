@@ -2,8 +2,10 @@ en:
   js:
     topic_audio:
       upload: "Upload audio"
+      replace: "Replace audio"
       label: "Audio"
       optional: "Optional"
       help: "Optional. Upload an audio recording explaining the main idea and key points of this article."
       invalid: "Choose an MP3, M4A, WAV, OGG, OGA, AAC or FLAC audio file."
       uploading: "Uploading audio, please wait…"
+      uploaded: "Uploaded: %{filename}"

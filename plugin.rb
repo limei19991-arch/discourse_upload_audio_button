@@ -2,7 +2,7 @@
 
 # name: discourse-topic-audio
 # about: Upload audio into the topic body directly below its cover.
-# version: 0.1.0
+# version: 0.1.5
 # authors: rio
 # required_version: 3.5.0
 
