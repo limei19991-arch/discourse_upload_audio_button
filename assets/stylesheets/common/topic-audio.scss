@@ -1,0 +1,32 @@
+.topic-audio-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-block: 2px;
+  padding: 0;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  .pick-files-button { display: none; }
+
+  .topic-audio-upload-button {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 4px 8px;
+    min-height: 28px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  &__help {
+    flex: 1 1 12rem;
+    color: var(--primary-medium);
+    font-size: var(--font-down-1);
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+  }
+}

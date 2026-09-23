@@ -1,0 +1,9 @@
+zh_CN:
+  js:
+    topic_audio:
+      upload: "上传语音"
+      label: "语音"
+      optional: "可选"
+      help: "非必填，上传一段语言讲解本文章的主旨和重点内容"
+      invalid: "请选择 MP3、M4A、WAV、OGG、OGA、AAC 或 FLAC 音频文件。"
+      uploading: "语音上传中，请稍候…"

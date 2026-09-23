@@ -1,0 +1,4 @@
+plugins:
+  topic_audio_enabled:
+    default: true
+    client: true
